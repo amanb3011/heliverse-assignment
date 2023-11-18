@@ -1,5 +1,10 @@
-import { Card } from 'react-bootstrap'
+import { Card,Row,Col,Button, Container } from 'react-bootstrap'
+import { addToTeam } from '../slices/teamSlice';
+import { useDeleteUserMutation } from '../slices/usersApiSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom'
+
 
 
 const User = ({user}) => {
@@ -15,13 +20,24 @@ const User = ({user}) => {
         objectFit: 'cover',
       };
 
+      const dispatch = useDispatch();
+
+      const teamHandler = () => {
+        dispatch(addToTeam({user}));
+    }
+
+
+
     return (
-        <Card style = {cardStyle} className='my-3 p-3 rounded'>
-            <Link to = {`/user/${user._id}`}>
+        <Card style={cardStyle} className="my-3 rounded">
+      <Row>
+        <Col md={4}>
+        <Link to = {`/user/${user._id}`}>
                <Card.Img style = {imageStyle} src={user.avatar} variant='top' />
-            </Link>
-            
-            <Card.Body>
+        </Link>
+        </Col>
+        <Col md={8}>
+          <Card.Body>
             <Link to = {`/user/${user._id}`}>
                 <Card.Title as = 'div' className='product-title'>
                     <strong>
@@ -29,13 +45,21 @@ const User = ({user}) => {
                     </strong>
                 </Card.Title>
             </Link>
-
-            <Card.Text as='p'>{user.domain}</Card.Text>
-            
-            {user.available ? (<Card.Text as='h6' className ='text-success'>Available</Card.Text>) : (<Card.Text as='h6' className ='text-danger'>Unavailable</Card.Text>)}
-            
-            </Card.Body>
-        </Card>
+            <Card.Text as="p">{user.gender}</Card.Text>
+            <Card.Text as="p">{user.domain}</Card.Text>
+            {user.available ? (
+              <Card.Text as="h6" className="text-success">
+                Available
+              </Card.Text>
+            ) : (
+              <Card.Text as="h6" className="text-danger">
+                Unavailable
+              </Card.Text>
+            )}
+          </Card.Body>
+        </Col>
+      </Row>
+    </Card>
     )
 }
 
