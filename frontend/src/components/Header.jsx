@@ -1,12 +1,11 @@
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown,Badge} from 'react-bootstrap';
 import { RiTeamFill } from "react-icons/ri";
 import { LinkContainer } from 'react-router-bootstrap';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 import SearchBox from './SearchBox';
 
 // import logo from '../assets/logo.png';
-// import SearchBox from './SearchBox';
 
 
 const Header = () => {
@@ -18,6 +17,9 @@ const Header = () => {
 //     marginRight: '10px',
 //     overflow: 'hidden', // This prevents the image from overflowing its container
 //   };
+    const team = useSelector((state) => state.team);
+
+    const{teamMembers} = team; 
 
     return(
          <header>
@@ -34,14 +36,13 @@ const Header = () => {
                          <SearchBox />
                              <LinkContainer to="/team">
                              <Nav.Link ><RiTeamFill />Team
-                             {/* Cart 
                              {
-                                 cartItems.length > 0 && (
-                                        <Badge pill bg= 'success' style = {{marginLeft:'5px'}}>
-                                            {cartItems.reduce((a,c) => a + c.qty, 0)}
+                                 teamMembers.length > 0 && (
+                                        <Badge pill bg= 'info' style = {{marginLeft:'5px'}}>
+                                            {teamMembers.length}
                                         </Badge>
                                  )
-                             } */}
+                             }
                              </Nav.Link>
                              </LinkContainer>
                          <NavDropdown title= 'options' id='username'>

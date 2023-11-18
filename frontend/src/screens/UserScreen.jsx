@@ -2,6 +2,7 @@ import { useParams,useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Row,Col,Image,ListGroup,Card,Button, ListGroupItem ,Container} from "react-bootstrap";
 import { useGetUserDetailsQuery , useDeleteUserMutation} from "../slices/usersApiSlice";
+import { addToTeam } from "../slices/teamSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useDispatch,useSelector } from "react-redux";
@@ -16,13 +17,34 @@ const UserScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { data:user, isLoading , refetch, error} = useGetUserDetailsQuery(userId);
+    const team = useSelector((state) => state.team);
+
+    const{teamMembers} = team;
+    
+    const { data:user, isLoading , error} = useGetUserDetailsQuery(userId);
     const [deleteUser , {isLoading : loadingDelete}] = useDeleteUserMutation();
 
     // const {userInfo} = useSelector((state) => state.auth);
 
     const addToTeamHandler = () => {
-        
+        const existMember = teamMembers.find((x) => x._id === userId);
+        const existMemberDomain = teamMembers.find((x) => x.domain === user.domain);
+        if(existMember){
+            toast.info('this user is already added to the team');
+        }
+        else if(existMemberDomain)
+        {
+            toast.warning(`user of domain:${user.domain} already added to team`);
+        }
+        else if(!user.available)
+        {
+            toast.error(`this user is unavailable right now`);
+        }
+        else
+        {
+            dispatch(addToTeam(user));
+            toast.success('user added to the team');
+        }
     }
 
 
@@ -96,12 +118,13 @@ const UserScreen = () => {
                         <ListGroupItem>
                         <Container>
                             <Row>
+                            {loadingDelete && <Loader />}
                             <Col>
-                                <Button className = 'btn-md mx-2' variant="danger" onClick={deleteHandler}>Delete</Button>
+                                <Button className = 'btn-md mx-2' variant="outline-danger" onClick={deleteHandler}>Delete</Button>
                             </Col>
                             <LinkContainer to = {`edit`}>
                             <Col>
-                                <Button className = 'btn-md mx-2' variant="primary" >update</Button>
+                                <Button className = 'btn-md mx-2' variant="outline-primary" >update</Button>
                             </Col>
                             </LinkContainer>
                             </Row>
@@ -111,8 +134,7 @@ const UserScreen = () => {
                             <Button
                             className='btn-block w-100'
                             type='button'
-                            variant="outline-success"
-                            disabled={user.available === false}
+                            variant="success"
                             onClick = {addToTeamHandler}
                             >
                                 Add To Team

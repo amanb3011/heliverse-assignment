@@ -75,7 +75,6 @@ const UserEditScreen = () => {
         try {
           const res = await uploadUserImage(formData).unwrap();
           toast.success(res.message);
-          console.log(res);
           setAvatar(res.avatar);
         } catch (err) {
           toast.error(err?.data?.message || err.error);
