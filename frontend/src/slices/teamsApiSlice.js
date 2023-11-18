@@ -16,8 +16,13 @@ export const teamsApiSlice = apiSlice.injectEndpoints({
             }),
             keepUnusedDataFor : 5,
         }),
+        getTeams: builder.query({
+            query: () => ({
+                url: TEAMS_URL,
+            }),
+        }),
     }),
 });
 
-export const {useAddTeamMutation , useGetTeamDetailsQuery} = teamsApiSlice;
+export const {useAddTeamMutation , useGetTeamDetailsQuery, useGetTeamsQuery} = teamsApiSlice;
 

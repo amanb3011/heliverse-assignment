@@ -178,10 +178,9 @@ const UserEditScreen = () => {
             </Form.Group>
 
             <Form.Group controlId='id'>
-                <Form.Label>position</Form.Label>
+                <Form.Label>position - to set position on HomeScreen </Form.Label>
                 <Form.Control
                 type='number'
-                placeholder='used to set the position of user in the user list'
                 value={id}
                 onChange={(e) => setId(e.target.value)}
                 ></Form.Control>

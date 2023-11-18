@@ -46,9 +46,9 @@ const Header = () => {
                              </Nav.Link>
                              </LinkContainer>
                          <NavDropdown title= 'options' id='username'>
-                            <LinkContainer to= '/teamslist'>
+                            <LinkContainer to= '/teamlist'>
                             <NavDropdown.Item >
-                                view teams
+                                team list
                             </NavDropdown.Item>
                             </LinkContainer>
                         </NavDropdown>

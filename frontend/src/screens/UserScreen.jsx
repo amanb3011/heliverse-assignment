@@ -78,7 +78,7 @@ const UserScreen = () => {
                         <h3>{user.first_name} {user.last_name}</h3>
                     </ListGroupItem>
                     <ListGroupItem>
-                       email: {user.email}
+                       email: <a href={`mailto:${user.email}`}>{user.email}</a>
                     </ListGroupItem>
                     <ListGroupItem>
                       gender : {user.gender}

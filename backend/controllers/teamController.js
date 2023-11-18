@@ -46,4 +46,8 @@ const getTeamById = asyncHandler(async (req, res) => {
       }
 });
 
-export { addTeam,getTeamById };
+const getTeams = asyncHandler(async (req, res) => {
+    const teams = await Team.find({});
+    res.status(200).json(teams);
+});
+export { addTeam,getTeamById,getTeams};

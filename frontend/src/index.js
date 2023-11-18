@@ -17,6 +17,7 @@ import TeamScreen from './screens/TeamScreen';
 import UserScreen from './screens/UserScreen'
 import UserEditScreen from './screens/UserEditScreen';
 import TeamIdScreen from './screens/TeamIdScreen';
+import TeamListScreen from './screens/TeamListScreen';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path='/user/:id/edit' element={<UserEditScreen />} /> 
       <Route path='/team' element={<TeamScreen />} /> 
       <Route path='/team/:id' element={<TeamIdScreen />} /> 
+      <Route path='/teamlist' element={<TeamListScreen />} /> 
     </Route>
   )
 )
